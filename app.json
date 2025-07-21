@@ -2,6 +2,7 @@
   "expo": {
     "name": "target",
     "slug": "target",
+    "scheme": "target",
     "version": "1.0.0",
     "android": {
       "package": "com.ricardob.target",
@@ -14,6 +15,9 @@
     "ios": {
       "bundleIdentifier": "com.ricardob.target",
       "icon": "./assets/ios-rocket.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
