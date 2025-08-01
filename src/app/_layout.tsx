@@ -1,8 +1,24 @@
-import { Stack } from "expo-router"
+import { Stack } from "expo-router";
+import {
+  useFonts,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
 
-import { colors } from "@/theme/colors"
+import { colors } from "@/theme/colors";
 
 export default function Layout() {
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Stack
       screenOptions={{
@@ -10,5 +26,5 @@ export default function Layout() {
         contentStyle: { backgroundColor: colors.white },
       }}
     />
-  )
+  );
 }

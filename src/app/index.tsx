@@ -1,11 +1,11 @@
+import { fontFamily } from "@/theme/fontFamily";
 import { router } from "expo-router/build/exports";
 import { View, Text, Button } from "react-native";
-
 
 export default function Index() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Init Expo Router</Text>
+      <Text style={{ fontFamily: fontFamily.bold }}>Init Expo Router</Text>
       <Button
         title="Target"
         onPress={() => router.navigate("/target")}
