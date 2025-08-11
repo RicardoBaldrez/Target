@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import { router } from "expo-router";
 
 import { List } from "@/components/List";
@@ -45,6 +45,7 @@ const targets = [
 export default function Index() {
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar barStyle="light-content" />
       <HomeHeader data={summary} />
       <List
         title="Metas"
@@ -53,7 +54,7 @@ export default function Index() {
         renderItem={({ item }) => (
           <Target data={item} onPress={() => router.navigate(`/in-progress/${item.id}`)} />
         )}
-        emptyMessage="Nenhuma meta cadastradaß"
+        emptyMessage="Nenhuma meta cadastrada"
         containerStyle={{ paddingHorizontal: 24 }}
       />
       <View style={{ padding: 24, paddingBottom: 32 }}>
