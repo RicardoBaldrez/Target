@@ -1,13 +1,13 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-import { colors, fontFamily } from "@/theme";
+import { colors, fontFamily } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
     height: 72,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 12,
     paddingBottom: 16,
   },
@@ -18,11 +18,11 @@ export const styles = StyleSheet.create({
   name: {
     fontSize: 14,
     color: colors.black,
-    fontFamily: fontFamily.medium
+    fontFamily: fontFamily.medium,
   },
   status: {
     fontSize: 10,
     color: colors.gray[500],
-    fontFamily: fontFamily.regular
-  }
+    fontFamily: fontFamily.regular,
+  },
 });

@@ -1,10 +1,10 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-import { colors, fontFamily } from "@/theme";
+import { colors, fontFamily } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
   },
   label: {
     fontSize: 12,
@@ -13,9 +13,9 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
   },
   status: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "flex-end",
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
   value: {
     fontSize: 18,
@@ -35,11 +35,11 @@ export const styles = StyleSheet.create({
   },
   progress: {
     marginTop: 16,
-    width: "100%",
+    width: '100%',
     height: 5,
     borderRadius: 5,
     backgroundColor: colors.gray[300],
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   currentProgress: {
     height: 5,

@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import styles from "./PageHeaderStyles";
-import { colors } from "@/theme";
+import styles from './PageHeaderStyles';
+
+import { colors } from '@/theme';
 
 type Props = {
   title: string;

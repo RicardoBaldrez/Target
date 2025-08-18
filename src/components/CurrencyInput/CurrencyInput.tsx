@@ -1,8 +1,9 @@
-import { View, Text } from "react-native";
-import Input, { CurrencyInputProps } from "react-native-currency-input";
+import { Text, View } from 'react-native';
+import Input, { CurrencyInputProps } from 'react-native-currency-input';
 
-import { styles } from "./CurrencyInputStyles";
-import { colors } from "@/theme";
+import { styles } from './CurrencyInputStyles';
+
+import { colors } from '@/theme';
 
 type Props = CurrencyInputProps & {
   label: string;

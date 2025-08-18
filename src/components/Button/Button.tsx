@@ -1,12 +1,13 @@
 import {
+  ActivityIndicator,
+  Text,
   TouchableOpacity,
   TouchableOpacityProps,
-  Text,
-  ActivityIndicator,
-} from "react-native";
+} from 'react-native';
 
-import { styles } from "./ButtonStyles";
-import { colors } from "@/theme";
+import { styles } from './ButtonStyles';
+
+import { colors } from '@/theme';
 
 type Props = TouchableOpacityProps & {
   title?: string;

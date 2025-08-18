@@ -1,13 +1,13 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-import { colors, fontFamily } from "@/theme";
+import { colors, fontFamily } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
     height: 324,
     paddingHorizontal: 24,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     paddingBottom: 18,
     gap: 24,
   },
@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
     fontFamily: fontFamily.medium,
   },
   summary: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  }
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });

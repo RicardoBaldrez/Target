@@ -5,11 +5,13 @@ import {
   Text,
   View,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
-import { styles } from "./ListStyles";
-import { colors } from "@/theme";
-import { Separator } from "../Separator";
+import { Separator } from '../Separator';
+
+import { styles } from './ListStyles';
+
+import { colors } from '@/theme';
 
 type Props<T> = FlatListProps<T> & {
   title: string;

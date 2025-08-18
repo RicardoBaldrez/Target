@@ -16,9 +16,6 @@
       "bundleIdentifier": "com.ricardob.target",
       "icon": "./assets/ios-rocket.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ]
+    "plugins": ["expo-router", "expo-font"]
   }
 }

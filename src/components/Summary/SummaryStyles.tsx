@@ -1,14 +1,14 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-import { colors, fontFamily } from "@/theme";
+import { colors, fontFamily } from '@/theme';
 
 export const styles = StyleSheet.create({
   container: {
     gap: 5,
   },
-  header:{
-    flexDirection: "row",
-    alignItems: "center",
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 5,
   },
   label: {

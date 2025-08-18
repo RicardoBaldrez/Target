@@ -1,8 +1,8 @@
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator } from 'react-native';
 
-import { colors } from "@/theme/colors";
+import { styles } from './styles';
 
-import { styles } from "./styles";
+import { colors } from '@/theme/colors';
 
 export function Loading() {
   return (
@@ -13,4 +13,3 @@ export function Loading() {
     />
   );
 }
-

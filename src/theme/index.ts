@@ -1,2 +1,2 @@
-export * from "@/theme/colors";
-export * from "@/theme/fontFamily";
+export * from '@/theme/colors';
+export * from '@/theme/fontFamily';

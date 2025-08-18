@@ -1,20 +1,20 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import {
   Text,
-  View,
   TouchableOpacity,
   TouchableOpacityProps,
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+  View,
+} from 'react-native';
 
-import { styles } from "./TargetStyles";
+import { styles } from './TargetStyles';
 
 export type TargetProps = {
-  id: string
+  id: string;
   name: string;
   percentage: string;
   current: string;
   target: string;
-}
+};
 
 type Props = TouchableOpacityProps & {
   data: TargetProps;
@@ -34,5 +34,5 @@ export function Target({ data, ...rest }: Props) {
 
       <MaterialIcons name="chevron-right" size={20} />
     </TouchableOpacity>
-  )
+  );
 }
