@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import { MaterialIcons } from '@expo/vector-icons';
 import { ColorValue, Text, View } from 'react-native';
 
@@ -14,13 +15,13 @@ type Props = {
     color: ColorValue;
     name: keyof typeof MaterialIcons.glyphMap;
   };
-  isLeft?: boolean;
+  isRight?: boolean;
 };
 
-export function Summary({ data, icon, isLeft = false }: Props) {
+export function Summary({ data, icon, isRight = false }: Props) {
   return (
     <View style={styles.container}>
-      <View style={[styles.header, isLeft && { justifyContent: 'flex-end' }]}>
+      <View style={[styles.header, isRight && { justifyContent: 'flex-end' }]}>
         <MaterialIcons size={16} name={icon.name} color={icon.color} />
         <Text style={styles.label}>{data.label}</Text>
       </View>
