@@ -1,5 +1,22 @@
 # Target App
 
+## Acesso ao Banco de Dados
+
+Para acessar o arquivo do banco de dados SQLite no simulador iOS, use o comando:
+
+```bash
+xcrun simctl get_app_container booted com.ricardob.target data
+```
+
+Este comando retorna o caminho para o diretório de dados do app. O arquivo do banco de dados estará em:
+`[caminho_retornado]/Documents/SQLite/target.db`
+
+Você pode abrir este arquivo em ferramentas como:
+
+- **Beekeeper Studio**
+- **DB Browser for SQLite**
+- **DBeaver**
+
 ## Configuração de Linting e Formatação
 
 Este projeto está configurado com ESLint e Prettier para manter a qualidade e consistência do código.
