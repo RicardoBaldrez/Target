@@ -8,12 +8,15 @@ import { Button } from '@/components/Button';
 import { CurrencyInput } from '@/components/CurrencyInput';
 import { Input } from '@/components/Input';
 import { PageHeader } from '@/components/PageHeader';
+import { useTargetDatabase } from '@/database/useTargetDatabase';
 
 export default function Target() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [name, setName] = useState('');
   const [amount, setAmount] = useState(0);
+
   const params = useLocalSearchParams<{ id?: string }>();
+  const { create } = useTargetDatabase();
 
   function handleSave() {
     if (!name.trim() || amount <= 0) {
@@ -31,6 +34,8 @@ export default function Target() {
 
   async function handleCreateTarget() {
     try {
+      await create({ name, amount });
+
       Alert.alert('Sucesso', 'Meta criada com sucesso!', [
         {
           text: 'Ok',
@@ -58,7 +63,7 @@ export default function Target() {
           onChangeText={setName}
         />
         <CurrencyInput
-          label="Valor da alvo (R$)"
+          label="Valor do alvo (R$)"
           value={amount}
           onChangeValue={setAmount}
         />
