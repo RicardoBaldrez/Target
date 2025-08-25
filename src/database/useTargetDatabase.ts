@@ -70,7 +70,7 @@ export function useTargetDatabase() {
     const statement = await database.prepareAsync(`
       UPDATE targets SET
         name = $name,
-        amount = $amount
+        amount = $amount,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = $id
     `);

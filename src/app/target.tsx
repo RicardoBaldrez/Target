@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-undef */
 import { router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 
 import { Button } from '@/components/Button';
@@ -16,7 +16,7 @@ export default function Target() {
   const [amount, setAmount] = useState(0);
 
   const params = useLocalSearchParams<{ id?: string }>();
-  const { create } = useTargetDatabase();
+  const { create, show } = useTargetDatabase();
 
   function handleSave() {
     if (!name.trim() || amount <= 0) {
@@ -48,6 +48,23 @@ export default function Target() {
       setIsProcessing(false);
     }
   }
+
+  async function fetchDetails(id: number) {
+    try {
+      const response = await show(id);
+      setName(response.name);
+      setAmount(response.amount);
+    } catch (error) {
+      console.log('🚀 ~ fetchDetails ~ error:', error);
+      Alert.alert('Erro', 'Não foi possível carregar os detalhes da meta.');
+    }
+  }
+
+  useEffect(() => {
+    if (params.id) {
+      fetchDetails(Number(params.id));
+    }
+  }, [params.id]);
 
   return (
     <View style={{ flex: 1, padding: 24 }}>
