@@ -1,12 +1,15 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-undef */
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Alert, StatusBar, View } from 'react-native';
 
+import { Loading } from '../components/Loading';
+
 import { Button } from '@/components/Button';
-import { HomeHeader } from '@/components/HomeHeader/HomeHeader';
+import { HomeHeader } from '@/components/HomeHeader';
 import { List } from '@/components/List';
-import { Target } from '@/components/Target/Target';
+import { Target, TargetProps } from '@/components/Target';
 import { useTargetDatabase } from '@/database/useTargetDatabase';
 
 const summary = {
@@ -21,48 +24,46 @@ const summary = {
   },
 };
 
-const targets = [
-  {
-    id: '1',
-    name: 'Apple Watch Series 7',
-    percentage: '75%',
-    current: 'R$ 1.340,00',
-    target: 'R$ 3.280,00',
-  },
-  {
-    id: '2',
-    name: 'Cadeira ergonômica',
-    percentage: '50%',
-    current: 'R$ 900,00',
-    target: 'R$ 1.200,00',
-  },
-  {
-    id: '3',
-    name: 'Viagem Amsterdã',
-    percentage: '40%',
-    current: 'R$ 4.000,00',
-    target: 'R$ 12.000,00',
-  },
-];
-
 export default function Index() {
+  const [isFetching, setIsFetching] = useState(true);
+  const [targets, setTargets] = useState<TargetProps[]>([]);
   const { listBySavedValue } = useTargetDatabase();
 
-  async function fetchTargets() {
+  async function fetchTargets(): Promise<TargetProps[]> {
     try {
       const response = await listBySavedValue();
-      console.log(response);
+
+      return response.map(item => ({
+        id: String(item.id),
+        name: item.name,
+        current: String(item.current),
+        percentage: item.percentage.toFixed(0) + '%',
+        target: String(item.amount),
+      }));
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível carregar as metas');
       console.log(error);
     }
   }
 
+  async function fetchData() {
+    const targetDataPromise = fetchTargets();
+
+    const [targetData] = await Promise.all([targetDataPromise]);
+
+    setTargets(targetData);
+    setIsFetching(false);
+  }
+
   useFocusEffect(
     useCallback(() => {
-      fetchTargets();
+      fetchData();
     }, [])
   );
+
+  if (isFetching) {
+    return <Loading />;
+  }
 
   return (
     <View style={{ flex: 1 }}>
