@@ -16,7 +16,7 @@ export default function Target() {
   const [amount, setAmount] = useState(0);
 
   const params = useLocalSearchParams<{ id?: string }>();
-  const { create, show, update } = useTargetDatabase();
+  const { create, show, update, remove } = useTargetDatabase();
 
   function handleSave() {
     if (!name.trim() || amount <= 0) {
@@ -66,6 +66,36 @@ export default function Target() {
     }
   }
 
+  async function handleDeleteTarget() {
+    if (!params.id) {
+      return;
+    }
+
+    Alert.alert('Remover', 'Deseja realmente remover?', [
+      { text: 'Não', style: 'cancel' },
+      { text: 'Sim', onPress: deleteTarget },
+    ]);
+  }
+
+  async function deleteTarget() {
+    try {
+      setIsProcessing(true);
+
+      await remove(Number(params.id));
+      Alert.alert('Sucesso', 'Meta removida com sucesso!', [
+        {
+          text: 'Ok',
+          onPress: () => router.replace('/'),
+        },
+      ]);
+    } catch (error) {
+      console.log('🚀 ~ remove ~ error:', error);
+      Alert.alert('Erro', 'Não foi possível remover a meta.');
+    } finally {
+      setIsProcessing(false);
+    }
+  }
+
   async function fetchDetails(id: number) {
     try {
       const response = await show(id);
@@ -88,6 +118,11 @@ export default function Target() {
       <PageHeader
         title="Meta"
         subtitle="Economize para alcançar sua meta financeira."
+        rightButton={
+          params.id
+            ? { icon: 'delete', onPress: handleDeleteTarget }
+            : undefined
+        }
       />
       <View style={{ marginTop: 32, gap: 24 }}>
         <Input
