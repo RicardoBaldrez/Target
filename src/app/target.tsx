@@ -16,7 +16,7 @@ export default function Target() {
   const [amount, setAmount] = useState(0);
 
   const params = useLocalSearchParams<{ id?: string }>();
-  const { create, show } = useTargetDatabase();
+  const { create, show, update } = useTargetDatabase();
 
   function handleSave() {
     if (!name.trim() || amount <= 0) {
@@ -26,9 +26,26 @@ export default function Target() {
     setIsProcessing(true);
 
     if (params.id) {
-      console.log('update');
+      handleUpdateTarget();
     } else {
       handleCreateTarget();
+    }
+  }
+
+  async function handleUpdateTarget() {
+    try {
+      await update({ id: Number(params.id), name, amount });
+      Alert.alert('Sucesso', 'Meta atualizada com sucesso!', [
+        {
+          text: 'Ok',
+          onPress: () => router.back(),
+        },
+      ]);
+    } catch (error) {
+      console.log('🚀 ~ handleUpdateTarget ~ error:', error);
+      Alert.alert('Não', 'Não foi possível atualizar a meta');
+    } finally {
+      setIsProcessing(false);
     }
   }
 
