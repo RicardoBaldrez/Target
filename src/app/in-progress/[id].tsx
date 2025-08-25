@@ -1,18 +1,17 @@
-import { router, useLocalSearchParams } from 'expo-router';
-import { View } from 'react-native';
+/* eslint-disable no-undef */
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Alert, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { List } from '@/components/List';
+import { Loading } from '@/components/Loading';
 import { PageHeader } from '@/components/PageHeader';
 import { Progress } from '@/components/Progress';
 import { Transaction, TransactionProps } from '@/components/Transaction';
+import { useTargetDatabase } from '@/database/useTargetDatabase';
+import { numberToCurrency } from '@/utils/numberToCurrency';
 import { TransactionTypes } from '@/utils/TransactionTypes';
-
-const details = {
-  current: 'R$ 580,00',
-  target: 'R$ 1.790,00,00',
-  percentage: 20,
-};
 
 const transactions: TransactionProps[] = [
   {
@@ -31,20 +30,60 @@ const transactions: TransactionProps[] = [
 ];
 
 export default function InProgress() {
+  const [isFetching, setIsFetching] = useState(true);
+  const [details, setDetails] = useState({
+    name: '',
+    current: 'R$ 0,00',
+    target: 'R$ 0,00',
+    percentage: 0,
+  });
   const { id } = useLocalSearchParams<{ id: string }>();
+
+  const { show } = useTargetDatabase();
+
+  async function fetchDetails() {
+    try {
+      const response = await show(Number(id));
+
+      setDetails({
+        name: response.name,
+        current: numberToCurrency(response.current),
+        target: numberToCurrency(response.amount),
+        percentage: response.percentage,
+      });
+    } catch (error) {
+      console.log('🚀 ~ fetchDetails ~ error:', error);
+      Alert.alert('Erro', 'Não foi possível carregar os detalhes da meta');
+    }
+  }
+
+  async function fetchData() {
+    const fetchDetailsPromise = fetchDetails();
+    await Promise.all([fetchDetailsPromise]);
+    setIsFetching(false);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
+  if (isFetching) {
+    return <Loading />;
+  }
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{ flex: 1, padding: 24, gap: 32 }}>
       <PageHeader
-        title="Apple Watch"
+        title={details.name}
         rightButton={{
           icon: 'edit',
           onPress: () => {},
         }}
       />
       <Progress data={details} />
-
       <List
         title="Transações"
         data={transactions}
