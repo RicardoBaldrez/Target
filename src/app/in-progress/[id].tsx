@@ -27,7 +27,7 @@ export default function InProgress() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const { show } = useTargetDatabase();
-  const { listTransactionsByTargetId } = useTransactionsDatabase();
+  const { listTransactionsByTargetId, remove } = useTransactionsDatabase();
 
   async function fetchTargetDetails() {
     try {
@@ -76,6 +76,34 @@ export default function InProgress() {
     setIsFetching(false);
   }
 
+  function handleRemoveTransaction(id: string) {
+    Alert.alert(
+      'Remover transação',
+      'Tem certeza que deseja remover esta transação?',
+      [
+        {
+          text: 'Não',
+          style: 'cancel',
+        },
+        {
+          text: 'Sim',
+          onPress: () => removeTransaction(id),
+        },
+      ]
+    );
+  }
+
+  async function removeTransaction(id: string) {
+    try {
+      await remove(Number(id));
+      fetchData();
+      Alert.alert('Sucesso', 'Transação removida com sucesso');
+    } catch (error) {
+      console.log('🚀 ~ removeTransaction ~ error:', error);
+      Alert.alert('Erro', 'Não foi possível remover a transação');
+    }
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchData();
@@ -101,7 +129,10 @@ export default function InProgress() {
         title="Transações"
         data={transactions}
         renderItem={({ item }) => (
-          <Transaction data={item} onRemove={() => () => {}} />
+          <Transaction
+            data={item}
+            onRemove={() => handleRemoveTransaction(item.id)}
+          />
         )}
         emptyMessage="Nenhuma transação. Toque em nova transação para guardar seu dinheiro aqui."
       />
