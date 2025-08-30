@@ -36,7 +36,7 @@ export function useTransactionsDatabase() {
   }
 
   async function listTransactionsByTargetId(id: number) {
-    return database.getAllAsync<Promise<TransactionResponse[]>>(`
+    return database.getAllAsync<TransactionResponse>(`
       SELECT id, target_id, amount, observation, created_at, updated_at
       FROM transactions
       WHERE target_id = ${id}
