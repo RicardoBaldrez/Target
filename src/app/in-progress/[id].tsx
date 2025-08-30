@@ -2,7 +2,7 @@
 import dayjs from 'dayjs';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { List } from '@/components/List';
@@ -117,6 +117,7 @@ export default function InProgress() {
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{ flex: 1, padding: 24, gap: 32 }}>
+      <StatusBar barStyle="dark-content" />
       <PageHeader
         title={details.name}
         rightButton={{
